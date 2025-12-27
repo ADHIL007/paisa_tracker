@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:paisa_tracker/sms/sms_importer.dart';
+import 'package:paisa_tracker/theme/app_theme.dart';
+import 'package:provider/provider.dart';
+import 'package:paisa_tracker/navigation/bottom_navigator.dart';
+import 'package:paisa_tracker/theme/theme_provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  ThemeProvider.instance.setMatchWithSystem(true);
+
+  runApp(
+    ChangeNotifierProvider.value(
+      value: ThemeProvider.instance,
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -10,32 +22,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () async {
-              final importer = SmsImporter();
+      debugShowCheckedModeBanner: false,
 
-              try {
-                final messages = await importer.importSms();
-                debugPrint(
-                  'Financial SMS imported: ${messages.length}',
-                );
+      theme: materialLightTheme,
+      darkTheme: materialDarkTheme,
 
-                for (final msg in messages.take(5)) {
-                  debugPrint(
-                    'FROM: ${msg.address} | BODY: ${msg.amount} | type : ${msg.type} | merchant: ${msg.merchant}',
-                  );
-                }
-              } catch (e) {
-                debugPrint('SMS import failed: $e');
-              }
-            },
-            child: const Text("Import SMS"),
-          ),
-        ),
-      ),
+      themeMode:
+          themeProvider.isMatchWithSystem
+              ? ThemeMode.system
+              : (themeProvider.theme == AppThemeMode.dark
+                  ? ThemeMode.dark
+                  : ThemeMode.light),
+
+      home: const BottomNav(),
     );
   }
 }
