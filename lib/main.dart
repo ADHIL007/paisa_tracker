@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paisa_tracker/Screens/home/widgets/initial_import_popup.dart';
+import 'package:paisa_tracker/sms/sms_db_helper.dart';
 import 'package:paisa_tracker/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:paisa_tracker/navigation/bottom_navigator.dart';
@@ -17,8 +19,36 @@ void main() {
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+    _checkTransactionsTable();
+  }
+
+  Future<void> _checkTransactionsTable() async {
+    final dbHelper = SmsDbHelper();
+    final isEmpty = await dbHelper.isTransactionsTableEmpty();
+
+    if (!mounted) return;
+
+    if (isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const InitialImportPopup(),
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

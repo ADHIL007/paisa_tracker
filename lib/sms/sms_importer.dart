@@ -7,9 +7,8 @@ class SmsImporter {
   final Telephony _telephony = Telephony.instance;
   final FinancialSmsFilter _filter = FinancialSmsFilter();
 
-  Future<List<Transaction>> importSms() async {
-    final bool? permissionGranted =
-        await _telephony.requestSmsPermissions;
+  Future<List<SmsTransaction>> importSms() async {
+    final bool? permissionGranted = await _telephony.requestSmsPermissions;
 
     if (permissionGranted != true) {
       Get.snackbar(
@@ -19,20 +18,17 @@ class SmsImporter {
       return [];
     }
 
-    final List<SmsMessage> allMessages =
-        await _telephony.getInboxSms(
+    final List<SmsMessage> allMessages = await _telephony.getInboxSms(
       columns: [
         SmsColumn.BODY,
         SmsColumn.ADDRESS,
         SmsColumn.DATE,
         SmsColumn.ID,
       ],
-      sortOrder: [
-        OrderBy(SmsColumn.DATE, sort: Sort.DESC),
-      ],
+      sortOrder: [OrderBy(SmsColumn.DATE, sort: Sort.DESC)],
     );
 
-    final List<Transaction> transactions = [];
+    final List<SmsTransaction> transactions = [];
 
     for (final msg in allMessages) {
       if (!_filter.isFinancial(msg)) continue;
@@ -46,7 +42,7 @@ class SmsImporter {
       final String? merchant = _extractMerchant(body);
 
       transactions.add(
-        Transaction(
+        SmsTransaction(
           id: msg.id?.toString() ?? '',
           address: msg.address ?? '',
           date: DateTime.fromMillisecondsSinceEpoch(msg.date ?? 0),
