@@ -25,7 +25,7 @@ class MainApp extends StatelessWidget {
 
                 for (final msg in messages.take(5)) {
                   debugPrint(
-                    'FROM: ${msg.address} | BODY: ${msg.body}',
+                    'FROM: ${msg.address} | BODY: ${msg.amount} | type : ${msg.type} | merchant: ${msg.merchant}',
                   );
                 }
               } catch (e) {
