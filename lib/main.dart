@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:paisa_tracker/Screens/home/widgets/initial_import_popup.dart';
 import 'package:paisa_tracker/sms/sms_db_helper.dart';
 import 'package:paisa_tracker/theme/app_theme.dart';
@@ -37,16 +39,8 @@ class _MainAppState extends State<MainApp> {
     final dbHelper = SmsDbHelper();
     final isEmpty = await dbHelper.isTransactionsTableEmpty();
 
-    if (!mounted) return;
-
-    if (isEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => const InitialImportPopup(),
-        );
-      });
+    if (isEmpty && !Get.isDialogOpen!) {
+      Get.dialog(const InitialImportPopup(), barrierDismissible: false);
     }
   }
 
@@ -54,7 +48,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
 
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
 
       theme: materialLightTheme,

@@ -77,4 +77,9 @@ class SmsDbHelper {
     final db = await _getDatabase();
     await db.delete(_transactionsTable, where: 'id = ?', whereArgs: [id]);
   }
+
+  Future<void> deleteAllTransactions() async {
+    final db = await _getDatabase();
+    await db.delete(_transactionsTable);
+  }
 }

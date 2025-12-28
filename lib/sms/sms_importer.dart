@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:paisa_tracker/sms/sms_filter.dart';
 import 'package:another_telephony/telephony.dart';
 import 'package:paisa_tracker/sms/sms_models.dart';
+import 'package:paisa_tracker/widgets/snackbar/glass_snackbar.dart';
 
 class SmsImporter {
   final Telephony _telephony = Telephony.instance;
@@ -11,10 +12,12 @@ class SmsImporter {
     final bool? permissionGranted = await _telephony.requestSmsPermissions;
 
     if (permissionGranted != true) {
-      Get.snackbar(
-        "Permission required",
-        "Please grant SMS permission to import transactions",
+      showGlassSnackBar(
+        title: "Permission Denied",
+        message: "Please grant permission to access SMS",
+        type: GlassSnackType.error,
       );
+
       return [];
     }
 
