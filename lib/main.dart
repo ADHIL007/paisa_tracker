@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:paisa_tracker/Screens/home/widgets/initial_import_popup.dart';
+import 'package:paisa_tracker/bindings/main_bindings.dart';
 import 'package:paisa_tracker/sms/sms_db_helper.dart';
 import 'package:paisa_tracker/theme/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class _MainAppState extends State<MainApp> {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-
+      initialBinding: MainBindings(),
       theme: materialLightTheme,
       darkTheme: materialDarkTheme,
 

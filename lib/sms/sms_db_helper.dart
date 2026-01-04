@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:paisa_tracker/Screens/transactions/transaction-controller.dart';
 import 'package:paisa_tracker/sms/sms_models.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -81,5 +83,7 @@ class SmsDbHelper {
   Future<void> deleteAllTransactions() async {
     final db = await _getDatabase();
     await db.delete(_transactionsTable);
+
+    Get.find<TransactionController>().transactions.clear();
   }
 }

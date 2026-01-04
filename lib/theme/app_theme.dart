@@ -48,27 +48,27 @@ class ColorTheme {
 }
 
 const ColorTheme lightTheme = ColorTheme(
-  background: Color(0xFFF7F9FC),
+  background: Color(0xFFF5F7FB),
   card: Color(0xFFFFFFFF),
-  cardSecondary: Color(0xFFF1F4F9),
+  cardSecondary: Color(0xFFF0F3F8),
   modal: Color(0xFFFFFFFF),
 
-  border: Color(0xFFE0E6ED),
-  divider: Color(0xFFD6DBE3),
+  border: Color(0xFFE2E8F0),
+  divider: Color(0xFFCBD5E1),
 
-  textPrimary: Color(0xFF0F172A),
+  textPrimary: Color(0xFF1E293B),
   textSecondary: Color(0xFF475569),
   textMuted: Color(0xFF94A3B8),
   textInverse: Color(0xFFFFFFFF),
 
-  primaryGradient: [Color(0xFF3B82F6), Color(0xFF8B5CF6)],
+  primaryGradient: [Color(0xFF4F46E5), Color(0xFF8B5CF6)],
 
-  secondaryGradient: [Color(0xFF06B6D4), Color(0xFF10B981)],
+  secondaryGradient: [Color(0xFF06B6D4), Color(0xFF22C55E)],
 
-  income: Color(0xFF22C55E),
-  expense: Color(0xFFEF4444),
+  income: Color(0xFF16A34A),
+  expense: Color(0xFFDC2626),
   warning: Color(0xFFF59E0B),
-  info: Color(0xFF3B82F6),
+  info: Color(0xFF2563EB),
 );
 const ColorTheme darkTheme = ColorTheme(
   background: Color(0xFF0B0F1A),
