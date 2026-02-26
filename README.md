@@ -23,7 +23,7 @@
 * **Dual Theme Support:** Fully optimized **Dark Mode** and **Light Mode**.
 * **Privacy Focused:** No data collection, no analytics tracking, no cloud sync.
 
-## 📸 UI
+## 📸 UI Concept 
 
 <img width="1292" height="590" alt="dark_light1" src="https://github.com/user-attachments/assets/c9f739d0-5776-49fd-abc9-8c5c1a3ca1b7" />
 
